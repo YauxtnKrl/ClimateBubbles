@@ -1,2 +1,2 @@
 # ClimateBubbles
-Visualization of emmsions data provided by the Emissions API
+Visualization of emissions data provided by the Emissions API
