@@ -6,16 +6,29 @@ import './App.css';
 function App() {
 
 const BASE_URL = "https://developer.nrel.gov/api/cleap/v1/"
-const TYPE = "/state_co2_emissions?state_abbr=CA&type=commercial&"
+let type = "/state_co2_emissions?state_abbr=CA&type=commercial&"
 const APIKEY = "api_key=Ow65NJHAt85c1BuNJfxJkm8v3egFLusvPPgZ9DV2"
 
 let [apiResponse, setApiResponse] = useState(false)
 
-let climateData= ""
+      let climateData= ""
 
-    async function Fetchtime(){
-       climateData = await(await fetch(BASE_URL + TYPE + APIKEY).catch(handleErr)).json();
+    async function Fetchtime(  ){
+
+       //climateData = await(await fetch(BASE_URL + type + APIKEY).catch(handleErr)).json();
       
+       fetch(BASE_URL + type + APIKEY).then(
+         (response)=>{
+          return response.json
+         }).then((data)=>{
+           console.log(data)  
+
+
+         }).catch((err)=>{  
+
+            console.log("ERROR " + err)
+         })
+
        if(climateData){setApiResponse(true)}
 
       dataList()
@@ -24,17 +37,17 @@ let climateData= ""
       return 
     }
 
-    function handleErr(err) {
-      setApiResponse(false)
-      console.warn(err);
-      let resp = new Response(
-        JSON.stringify({
-          code: 400,
-          message: "Network Error"
-        })
-      );
-      return resp;
-    }
+    // function handleErr(err) {
+    //   setApiResponse(false)
+    //   console.warn(err);
+    //   let resp = new Response(
+    //     JSON.stringify({
+    //       code: 400,
+    //       message: "Network Error"
+    //     })
+    //   );
+    //   return resp;
+    // }
 
     async function dataList(){
       await (climateData)
